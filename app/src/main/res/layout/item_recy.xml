@@ -5,38 +5,55 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal" android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-    <!--<android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android
-        .com/apk/res-auto"
-        android:id="@+id/card_view"
-        android:layout_gravity="center"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        card_view:cardCornerRadius="4dp">-->
+        android:layout_height="wrap_content">
+        <!--card_view:cardBackgroundColor="@color/colorPrimary"-->
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/viewImagen"/>
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/tvTitle"
-                android:text="Titulo"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/viewImagen"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"/>
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/tvDescription"
-                android:text="Descripcion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/tvLink"
-                android:text="Link"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/tvTitle"
+                    android:text="Titulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/cardview_dark_background"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_marginLeft="15dp"
+                    android:text="Descripcion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10dp"/>
+                <TextView
+                    android:id="@+id/tvLink"
+                    android:text="Link"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="italic"
+                    android:textSize="10dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:padding="10dp"/>
+            </LinearLayout>
         </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
     <!--</android.support.v7.widget.CardView>-->
 </LinearLayout>

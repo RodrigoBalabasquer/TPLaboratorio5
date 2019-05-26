@@ -29,6 +29,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         MyViewHolder myViewHoleder = new MyViewHolder(v,listener);
         return myViewHoleder;
     }
+
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         //Aca se debe llamar al hilo para obtener la imagen
@@ -51,10 +52,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         holder.setPosition(position);
     }
-    @Override
-    public int getItemCount() {
-        return this.items.size();
-    }
 
     public List<Item> SetPersonas(List<Item> pers){
         this.items = pers;
@@ -64,5 +61,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         Item p = this.items.get(position);
         p.setImagenValue(imagen);
     }
+    @Override
+    public int getItemCount() {
+        return this.items.size();
+    }
+
 
 }

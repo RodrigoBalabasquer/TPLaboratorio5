@@ -29,7 +29,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements  View.OnCli
     }
     @Override
     public void onClick(View v) {
-        listener.onItemClick(position);
+        listener.onItemClick(v,position);
 
     }
 }
