@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements MyOnItemClick, Ha
     MyAdapter adapter;
     List<Item> items;
     List<Item> itemsBackUp;
+    Handler handler;
     public static final int TEXTO = 1;
     public static final int IMAGEN = 2;
     @Override
@@ -32,18 +33,33 @@ public class MainActivity extends AppCompatActivity implements MyOnItemClick, Ha
         itemsBackUp = new ArrayList<>();
 
         RecyclerView rvPersona = (RecyclerView) super.findViewById(R.id.rvPersonas);
+        handler = new Handler(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rvPersona.setLayoutManager(layoutManager);
 
-        Handler handler = new Handler(this);
-
         adapter = new MyAdapter(items,this,handler);
         rvPersona.setAdapter(adapter);
 
-        MyThread hilo = new MyThread(handler,"https://tn.com.ar/rss.xml",TEXTO,0);
-        hilo.start();
+        MiCatalogo catalogo = new MiCatalogo(this);
+        catalogo.show(getSupportFragmentManager(),"dialogo");
     }
+
+    public void Cargar(List<String> urls){
+        this.items = new ArrayList<Item>();
+        this.itemsBackUp = new ArrayList<Item>();
+
+        adapter.items = new ArrayList<Item>();
+        adapter.notifyDataSetChanged();
+
+        for(String url: urls){
+            MyThread hilo = new MyThread(handler,url,TEXTO,0);
+            hilo.start();
+        }
+        //MyThread hilo = new MyThread(handler,url,TEXTO,0);
+        //hilo.start();
+    }
+
     @Override
     public void onItemClick(View v,int position) {
         Item item = this.items.get(position);
@@ -60,12 +76,12 @@ public class MainActivity extends AppCompatActivity implements MyOnItemClick, Ha
     @Override
     public boolean handleMessage(Message msg) {
         if(msg.arg1 == TEXTO){
-            this.items = this.adapter.SetPersonas((List<Item>) msg.obj);
+            this.items = this.adapter.SetItems((List<Item>) msg.obj,false);
             adapter.notifyDataSetChanged();
-            this.itemsBackUp = (List<Item>) msg.obj;
+            this.itemsBackUp = this.items;
         }
         else{
-            this.adapter.SetImagenPer((byte[])msg.obj,msg.arg2);
+            this.adapter.SetImagen((byte[])msg.obj,msg.arg2);
             adapter.notifyItemChanged(msg.arg2);
         }
         return false;
@@ -84,6 +100,10 @@ public class MainActivity extends AppCompatActivity implements MyOnItemClick, Ha
         if(menuItem.getItemId() == R.id.opcion1){
             Log.d("Click Menu","Se hizo click en el menu "+menuItem.getTitle());
         }
+        else if(menuItem.getItemId() == R.id.opcion2){
+            MiCatalogo catalogo = new MiCatalogo(this);
+            catalogo.show(getSupportFragmentManager(),"dialogo");
+        }
         return  super.onOptionsItemSelected(menuItem);
     }
 
@@ -99,12 +119,12 @@ public class MainActivity extends AppCompatActivity implements MyOnItemClick, Ha
         Log.d("Escribo",newText);
         if(newText.length() > 3) {
             this.filtrar(newText);
-            this.items = adapter.SetPersonas(this.items);
+            this.items = adapter.SetItems(this.items,true);
             adapter.notifyDataSetChanged();
         }
         else{
             this.items = this.itemsBackUp;
-            adapter.SetPersonas(this.itemsBackUp);
+            adapter.SetItems(this.itemsBackUp,true);
             adapter.notifyDataSetChanged();
         }
         return false;

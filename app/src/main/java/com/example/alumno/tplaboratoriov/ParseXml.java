@@ -8,6 +8,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,6 +37,11 @@ public class ParseXml {
                             p.setTitle(xml.nextText());
                         }
                     }
+                    if("pubDate".equals(xml.getName())){
+                        if(p != null){
+                            p.setFecha(xml.nextText());
+                        }
+                    }
                     if("description".equals(xml.getName())){
                         if(p != null){
                             p.setDescription(xml.nextText());
@@ -49,6 +55,11 @@ public class ParseXml {
                     if("image".equals(xml.getName())){
                         if(p != null){
                             p.setImage(xml.nextText());
+                        }
+                    }
+                    if("enclosure".equals(xml.getName())){
+                        if(p != null){
+                            p.setImage((String) xml.getAttributeValue(null,"url"));
                         }
                     }
                 }

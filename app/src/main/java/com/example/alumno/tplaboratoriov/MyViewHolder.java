@@ -11,6 +11,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements  View.OnCli
     public TextView tvTitle;
     public TextView tvDescription;
     public TextView tvLink;
+    public TextView tvFecha;
     public ImageView viewImagen;
     private int position;
 
@@ -20,6 +21,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements  View.OnCli
         tvTitle = (TextView) v.findViewById(R.id.tvTitle);
         tvLink = (TextView) v.findViewById(R.id.tvLink);
         tvDescription = (TextView) v.findViewById(R.id.tvDescription);
+        tvFecha = (TextView) v.findViewById(R.id.tvFecha);
         viewImagen = (ImageView) v.findViewById(R.id.viewImagen);
         this.listener = listener;
     }

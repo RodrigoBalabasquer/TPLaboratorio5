@@ -8,5 +8,7 @@
     <!--android:icon="@drawable/icon"
     app:showAsAction="always"
     app:showAsAction="never"--></item>
-<!--<item android:id="@+id/opcion2" android:title="Opcion 2"></item>-->
+<item android:id="@+id/opcion2"
+    android:title="asdasd"
+    android:icon="@drawable/rss" app:showAsAction="ifRoom"></item>
 </menu>
