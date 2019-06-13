@@ -5,20 +5,23 @@ import android.util.Xml;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 /**
  * Created by alumno on 02/05/2019.
  */
 
 public class ParseXml {
 
-    public static List<Item> parseXml(String listaItem) {
+    public static List<Item> parseXml(String listaItem)throws XmlPullParserException, IOException, ParseException, ParseException {
         List<Item> ListaItem = new ArrayList<>();
         XmlPullParser xml = Xml.newPullParser();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -40,52 +43,14 @@ public class ParseXml {
                     }
                     if("pubDate".equals(xml.getName())){
                         if(p != null){
-                            String[] fechaArray = xml.nextText().split(" ");
-                            int mont = 0;
-                            switch (fechaArray[2]){
-                                case "Jan":
-                                    mont = 0;
-                                    break;
-                                case "Feb":
-                                    mont = 1;
-                                    break;
-                                case "Mar":
-                                    mont = 2;
-                                    break;
-                                case "Apr":
-                                    mont = 3;
-                                    break;
-                                case "May":
-                                    mont = 4;
-                                    break;
-                                case "Jun":
-                                    mont = 5;
-                                    break;
-                                case "Jul":
-                                    mont = 6;
-                                    break;
-                                case "Aug":
-                                    mont = 7;
-                                    break;
-                                case "Sep":
-                                    mont = 8;
-                                    break;
-                                case "Oct":
-                                    mont = 9;
-                                    break;
-                                case "Nov":
-                                    mont = 10;
-                                    break;
-                                case "Dec":
-                                    mont = 11;
-                                    break;
-                            }
-                            String[] hora = fechaArray[4].split(":");
-                            Date fecha = new Date(Integer.parseInt(fechaArray[3]),mont,Integer.parseInt(fechaArray[1])
-                                    ,Integer.parseInt(hora[0]),Integer.parseInt(hora[1]),Integer.parseInt(hora[2]));
-                            p.setFechaDate(fecha);
-                            //p.setFecha(format.format(fecha));
-                            p.setFecha(fecha.getYear()+"-"+(fecha.getMonth()+1)+"-"+fechaArray[1]+" "+fecha.getHours()+":"+fecha.getMinutes()+":"+fecha.getSeconds());
+                            DateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss");
+                            Date date = formatter.parse(xml.nextText());
+
+                            p.setFechaDate(date);
+
+                            SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            String fechaString = f.format(date);
+                            p.setFecha(fechaString);
                         }
                     }
                     if("description".equals(xml.getName())){

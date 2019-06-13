@@ -11,20 +11,25 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.support.v7.widget.ShareActionProvider;
+import android.support.v4.view.MenuItemCompat;
 
 public class AnotherActivity extends AppCompatActivity implements  View.OnClickListener {
 
-    Button b = null;
+    String page = null;
+    private ShareActionProvider shareActionProvider;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("asdda","Se hizo click en el menu ");
         setContentView(R.layout.activity_another);
         Intent i = getIntent();
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(i.getStringExtra("title"));
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        this.page = (String) i.getStringExtra("link");
         //b = (Button) this.findViewById(R.id.btn);
         //b.setOnClickListener(this);
         //b.setText(i.getStringExtra("link"));
@@ -42,6 +47,9 @@ public class AnotherActivity extends AppCompatActivity implements  View.OnClickL
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu2,menu);
+        MenuItem item = menu.findItem(R.id.share);
+        shareActionProvider = (ShareActionProvider)  MenuItemCompat.getActionProvider(item);
+        setShareActionIntent(this.page);
         return super.onCreateOptionsMenu(menu);
     }
     @Override
@@ -53,5 +61,11 @@ public class AnotherActivity extends AppCompatActivity implements  View.OnClickL
             this.finish();
         }
         return  super.onOptionsItemSelected(menuItem);
+    }
+    private void setShareActionIntent(String myText){
+        Intent myShareIntent = new Intent(Intent.ACTION_SEND);
+        myShareIntent.setType("text/plain");
+        myShareIntent.putExtra(Intent.EXTRA_TEXT, myText);
+        shareActionProvider.setShareIntent(myShareIntent);
     }
 }

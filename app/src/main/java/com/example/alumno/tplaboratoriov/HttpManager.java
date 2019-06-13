@@ -1,5 +1,7 @@
 package com.example.alumno.tplaboratoriov;
 
+import android.util.Log;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,6 +22,7 @@ public class HttpManager {
         try{
             Url = new URL(url);
             HttpsURLConnection connection = (HttpsURLConnection) Url.openConnection();
+            Log.d("url",url);
             connection.setRequestMethod("GET");
             connection.connect();
             int res = connection.getResponseCode();

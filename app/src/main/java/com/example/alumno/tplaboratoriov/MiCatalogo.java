@@ -37,17 +37,23 @@ public class MiCatalogo extends DialogFragment {
 
         LayoutInflater li = LayoutInflater.from(this.getContext());
         View v = li.inflate(R.layout.dialog,null);
-        CheckBox TN1 = (CheckBox) v.findViewById(R.id.TN1);
-        CheckBox CL1 = (CheckBox) v.findViewById(R.id.CL1);
+        //CheckBox TN1 = (CheckBox) v.findViewById(R.id.TN1);
+        //CheckBox CL1 = (CheckBox) v.findViewById(R.id.CL1);
         List<CheckBox> opciones = new ArrayList<CheckBox>();
 
-        SharedPreferences prefs = this.activity.getSharedPreferences("catalogo", Context.MODE_MULTI_PROCESS);
+        SharedPreferences prefs = this.activity.getSharedPreferences("catalogo", Context.MODE_PRIVATE);
 
-        TN1.setChecked(prefs.getBoolean((String)TN1.getText(),false));
-        CL1.setChecked(prefs.getBoolean((String)CL1.getText(),false));
+        //TN1.setChecked(prefs.getBoolean((String)TN1.getText(),false));
+        //CL1.setChecked(prefs.getBoolean((String)CL1.getText(),false));
+        for (View vi : v.getTouchables()){
+            CheckBox cb = (CheckBox)vi;
+            cb.setChecked(prefs.getBoolean((String)cb.getText(),false));
+            opciones.add(cb);
+        }
 
-        opciones.add(TN1);
-        opciones.add(CL1);
+
+        //opciones.add(TN1);
+        //opciones.add(CL1);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Catalogos");

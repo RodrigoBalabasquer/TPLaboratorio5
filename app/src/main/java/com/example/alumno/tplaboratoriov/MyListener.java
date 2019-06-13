@@ -23,7 +23,7 @@ public class MyListener implements DialogInterface.OnClickListener {
     }
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        SharedPreferences prefs = this.activity.getSharedPreferences("catalogo", Context.MODE_MULTI_PROCESS);
+        SharedPreferences prefs = this.activity.getSharedPreferences("catalogo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
 
         if(which == -1){

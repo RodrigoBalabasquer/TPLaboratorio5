@@ -3,6 +3,7 @@ package com.example.alumno.tplaboratoriov;
 import android.support.annotation.NonNull;
 
 import java.util.Date;
+import java.util.Calendar;
 import java.text.SimpleDateFormat;
 
 /**
@@ -21,7 +22,7 @@ public class Item implements  Comparable<Item>{
     public Item(){
 
         this.procesar = false;
-        this.fechaDate = new Date();
+        this.fechaDate = Calendar.getInstance().getTime();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         this.fecha = format.format(this.fechaDate);
     }
@@ -97,18 +98,6 @@ public class Item implements  Comparable<Item>{
 
     @Override
     public int compareTo(Item o) {
-        if(this.fechaDate.compareTo(o.fechaDate) > 0)
-            return  1;
-        else if(this.fechaDate.compareTo(o.fechaDate) < 0)
-            return  -1;
-        return  0;
-        /*else{
-            if(this.title.compareTo(o.title) > 0)
-                return  1;
-            else if(this.title.compareTo(o.title) < 0)
-                return  -1;
-            else
-                return 0;
-        }*/
+        return getFecha().compareTo(o.getFecha());
     }
 }

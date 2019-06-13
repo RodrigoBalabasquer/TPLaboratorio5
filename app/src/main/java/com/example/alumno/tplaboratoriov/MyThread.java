@@ -3,6 +3,11 @@ package com.example.alumno.tplaboratoriov;
 import android.os.Handler;
 import android.os.Message;
 
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.text.ParseException;
+
 /**
  * Created by alumno on 02/05/2019.
  */
@@ -27,7 +32,15 @@ public class MyThread extends Thread {
         if(imagenText == MainActivity.TEXTO){
 
             String s = http.Conectar(url);
-            m.obj = ParseXml.parseXml(s);
+            try {
+                m.obj = ParseXml.parseXml(s);
+            } catch (XmlPullParserException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
         else{
             byte [] img = http.ConectarImagen(url);
