@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -45,10 +46,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         String text = i.getLink().split("//")[1].split("/")[0];
         Log.d("link",text);
         holder.tvLink.setText(text);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat parser = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss");
 
-        if(i.getFecha() == "" || i.getFecha() == null){
+        //SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //SimpleDateFormat parser = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss");
+
+        /*if(i.getFecha() == "" || i.getFecha() == null){
             Date fecha = new Date();
             holder.tvFecha.setText(format.format(fecha));
         }
@@ -59,7 +61,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
             } catch (Exception e) {
                 holder.tvFecha.setText(e.getMessage());
             }
-        }
+        }*/
+        holder.tvFecha.setText(i.getFecha());
 
         if(!i.getProcesar()){
             MyThread hilo2 = new MyThread(this.myHanler,i.getImage(),2,position);
@@ -83,6 +86,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                 this.items.add(item);
             }
         }
+        Collections.sort(this.items);
         return this.items;
     }
     public void SetImagen(byte[] imagen,int position){

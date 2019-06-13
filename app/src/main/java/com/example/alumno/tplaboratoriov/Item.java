@@ -1,12 +1,15 @@
 package com.example.alumno.tplaboratoriov;
 
+import android.support.annotation.NonNull;
+
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by alumno on 02/05/2019.
  */
 
-public class Item {
+public class Item implements  Comparable<Item>{
     private  String title;
     private  String description;
     private  String image;
@@ -14,8 +17,13 @@ public class Item {
     private boolean procesar;
     private byte[] imagenValue;
     private String fecha;
+    private Date fechaDate;
     public Item(){
+
         this.procesar = false;
+        this.fechaDate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        this.fecha = format.format(this.fechaDate);
     }
 
     public Item(String title, String description, String image,String link,String fecha){
@@ -51,6 +59,10 @@ public class Item {
         this.fecha = fecha;
     }
 
+    public void setFechaDate(Date fecha) {
+        this.fechaDate = fecha;
+    }
+
     public void setImagenValue(byte[] imagenValue) {
         this.imagenValue = imagenValue;
     }
@@ -80,4 +92,23 @@ public class Item {
     }
 
     public String getFecha() { return  fecha;}
+
+    public Date getFechaDate() { return  fechaDate;}
+
+    @Override
+    public int compareTo(Item o) {
+        if(this.fechaDate.compareTo(o.fechaDate) > 0)
+            return  1;
+        else if(this.fechaDate.compareTo(o.fechaDate) < 0)
+            return  -1;
+        return  0;
+        /*else{
+            if(this.title.compareTo(o.title) > 0)
+                return  1;
+            else if(this.title.compareTo(o.title) < 0)
+                return  -1;
+            else
+                return 0;
+        }*/
+    }
 }
