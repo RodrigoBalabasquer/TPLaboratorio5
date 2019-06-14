@@ -1,6 +1,7 @@
 package com.example.alumno.tplaboratoriov;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,6 +39,18 @@ public class AnotherActivity extends AppCompatActivity implements  View.OnClickL
         ws.setJavaScriptEnabled(true);
 
         wv.loadUrl(i.getStringExtra("link"));
+
+        FloatingActionButton comp = (FloatingActionButton) findViewById(R.id.share2);
+        comp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myShareIntent = new Intent(Intent.ACTION_SEND);
+                myShareIntent.setType("text/plain");
+                myShareIntent.putExtra(Intent.EXTRA_TEXT,page);
+                shareActionProvider.setShareIntent(myShareIntent);
+                startActivity(myShareIntent);
+            }
+        });
     }
     @Override
     public void onClick(View v) {
